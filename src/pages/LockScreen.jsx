@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     height: "2rem",
   },
   topContainer: {
-    height: "70%",
+    height: "1.5rem",
     width: "15rem",
     float: "right",
     display: "flex",
