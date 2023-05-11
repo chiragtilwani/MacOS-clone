@@ -26,6 +26,10 @@ const useStyles = makeStyles({
     textAlign: "left",
     paddingLeft: ".5rem",
     height: "1.5rem",
+    '&:hover':{
+      backgroundColor: "#1f68c9",
+      cursor: "default"
+    }
   },
 });
 

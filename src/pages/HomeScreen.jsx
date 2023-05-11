@@ -7,11 +7,13 @@ import { BiSearch } from "react-icons/bi";
 import macWall from "../assets/macWallpaper.jpg";
 import Menu1 from "../components/Menu1";
 import { useState } from "react";
+import Dock from "../components/Dock";
 
 const useStyles = makeStyles({
   container: {
     width: "100vw",
     height: "100vh",
+    overflow: "hidden",
   },
   top: {
     width: "100vw",
@@ -29,6 +31,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
+    cursor: "default",
   },
   topRight: {
     width: "15rem",
@@ -37,6 +40,7 @@ const useStyles = makeStyles({
     justifyContent: "space-evenly",
     color: "rgba(255,255,255,.8)",
     fontSize: ".8rem",
+    cursor: "default",
   },
   dateTime: {
     width: "7rem",
@@ -44,10 +48,25 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  center: {
+    width: "100vw",
+    height: "100%",
+  },
+  bottom: {
+    position: "absolute",
+    width: "100vw",
+    bottom: ".5rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 const HomeScreen = () => {
   const classes = useStyles();
   const [logoClicked, setLogoClicked] = useState(false);
+  const [zIndex, setZIndex] = useState(0); //for opening apps on homescreen at random position
+  const [top, setTop] = useState(); //for opening apps on homescreen at random position
+  const [bottom, setBottom] = useState(); //for opening apps on homescreen at random position
 
   const monthNames = [
     "Jan",
@@ -88,23 +107,40 @@ const HomeScreen = () => {
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
       }}
-      
     >
       <div className={classes.top}>
-        {logoClicked?<Menu1 />:null}
+        {logoClicked ? <Menu1 /> : null}
         <div className={classes.topLeft}>
           <DiApple
             className={classes.appleIcon}
-            style={{ fontSize: "1.1rem", color: "rgba(255,255,255,.7)",zIndex:'1' }}
-            onClick={logoClicked?handleMenuClose:handleMenuOpen}
+            style={{
+              fontSize: "1.1rem",
+              color: "rgba(255,255,255,.7)",
+              zIndex: "1",
+            }}
+            onClick={logoClicked ? handleMenuClose : handleMenuOpen}
           />
-          <span className={classes.topSpan} onClick={handleMenuClose}>Finder</span>
-          <span className={classes.topSpan} onClick={handleMenuClose}>File</span>
-          <span className={classes.topSpan} onClick={handleMenuClose}>Edit</span>
-          <span className={classes.topSpan} onClick={handleMenuClose}>View</span>
-          <span className={classes.topSpan} onClick={handleMenuClose}>Go</span>
-          <span className={classes.topSpan} onClick={handleMenuClose}>Window</span>
-          <span className={classes.topSpan} onClick={handleMenuClose}>Help</span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            Finder
+          </span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            File
+          </span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            Edit
+          </span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            View
+          </span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            Go
+          </span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            Window
+          </span>
+          <span className={classes.topSpan} onClick={handleMenuClose}>
+            Help
+          </span>
         </div>
         <div className={classes.topRight} onClick={handleMenuClose}>
           <span>India</span>
@@ -122,7 +158,9 @@ const HomeScreen = () => {
         </div>
       </div>
       <div className={classes.center} onClick={handleMenuClose}></div>
-      <div className={classes.bottom} onClick={handleMenuClose}></div>
+      <div className={classes.bottom} onClick={handleMenuClose}>
+        <Dock />
+      </div>
     </div>
   );
 };
