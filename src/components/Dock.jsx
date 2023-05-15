@@ -16,33 +16,79 @@ const useStyles = makeStyles({
     height: "3rem",
     backgroundColor: "rgba(0,0,0,.3)",
     borderRadius: ".5rem",
-    display:'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-},
-img: {
-    width: "2.5rem",
-    overflow:'visible',
-    cursor: 'pointer',
-    '&:hover':{
-        transform: 'scale(1.5)',
-  transition: 'transform 0.2s ease-out',
-    }
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  img: {
+    width: "2rem",
+    overflow: "visible",
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.5)",
+      transition: "transform 0.2s ease-out",
+    },
   },
 });
-const Dock = () => {
+const Dock = (props) => {
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
-      <img className={classes.img} src={connectLogo}  alt="connect" />
-      <img className={classes.img} src={memoriesLogo} alt="memories" />
-      <img className={classes.img} src={colorSelectorLogo} alt="colorSelector" />
-      <img className={classes.img} src={todoLogo} alt="todo" />
-      <img className={classes.img} src={dadJokeLogo} alt="dadJoke" />
-      <img className={classes.img} src={pokemonLogo} alt="pokemon" />
-      <img className={classes.img} src={hangmanLogo} alt="hangman" />
-      <img className={classes.img} src={shoppingCartLogo} alt="hangman" />
-      <img className={classes.img} src={portfolio} alt="hangman" />
+      <img
+        className={classes.img}
+        src={connectLogo}
+        alt="connect"
+        onClick={() => props.modifyOpenApps("Connect")}
+      />
+      <img
+        className={classes.img}
+        src={memoriesLogo}
+        alt="memories"
+        onClick={() => props.modifyOpenApps("Memories")}
+      />
+      <img
+        className={classes.img}
+        src={colorSelectorLogo}
+        alt="colorSelector"
+        onClick={() => props.modifyOpenApps("colorSelector")}
+      />
+      <img
+        className={classes.img}
+        src={todoLogo}
+        alt="todo"
+        onClick={() => props.modifyOpenApps("Todo")}
+      />
+      <img
+        className={classes.img}
+        src={dadJokeLogo}
+        alt="dadJoke"
+        onClick={() => props.modifyOpenApps("dadJoke")}
+      />
+      <img
+        className={classes.img}
+        src={pokemonLogo}
+        alt="pokemon"
+        onClick={() => props.modifyOpenApps("Pokemon")}
+      />
+      <img
+        className={classes.img}
+        src={hangmanLogo}
+        alt="hangman"
+        onClick={() => props.modifyOpenApps("Hangman")}
+      />
+      <img
+        className={classes.img}
+        src={shoppingCartLogo}
+        alt="shopping cart logo"
+        onClick={() => props.modifyOpenApps("Shopping Cart")}
+      />
+      <img
+        className={classes.img}
+        src={portfolio}
+        alt="portfolio"
+        onClick={() => props.modifyOpenApps("Portfolio")}
+      />
     </div>
   );
 };

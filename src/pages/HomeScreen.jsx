@@ -8,6 +8,7 @@ import macWall from "../assets/macWallpaper.jpg";
 import Menu1 from "../components/Menu1";
 import { useState } from "react";
 import Dock from "../components/Dock";
+import Application from "../components/Application";
 
 const useStyles = makeStyles({
   container: {
@@ -51,6 +52,7 @@ const useStyles = makeStyles({
   center: {
     width: "100vw",
     height: "100%",
+    position: "relative",
   },
   bottom: {
     position: "absolute",
@@ -64,9 +66,11 @@ const useStyles = makeStyles({
 const HomeScreen = () => {
   const classes = useStyles();
   const [logoClicked, setLogoClicked] = useState(false);
-  const [zIndex, setZIndex] = useState(0); //for opening apps on homescreen at random position
+  const [url, setUrl] = useState();
   const [top, setTop] = useState(); //for opening apps on homescreen at random position
   const [bottom, setBottom] = useState(); //for opening apps on homescreen at random position
+  const [openApps, setOpenApps] = useState([]);
+  const [zIndex, setZIndex] = useState(1);
 
   const monthNames = [
     "Jan",
@@ -93,11 +97,104 @@ const HomeScreen = () => {
   const hour = date.getHours();
   const minute = date.getMinutes();
 
+  const allApps = [
+    {
+      name: "Connect",
+      url: "https://connect-mern-socialmedia.netlify.app/",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+    {
+      name: "Memories",
+      url: "https://memories-chirag.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "2rem",
+      left: "2rem",
+    },
+    {
+      name: "colorSelector",
+      url: "https://react-color-selector.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "3rem",
+      left: "3rem",
+    },
+    {
+      name: "Todo",
+      url: "https://react-todo-app01.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+    {
+      name: "dadJoke",
+      url: "https://dad-jokeeapp.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+    {
+      name: "Pokemon",
+      url: "https://pokemon-chirag.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+    {
+      name: "Hangman",
+      url: "https://hangman-game08.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+    {
+      name: "Shopping Cart",
+      url: "https://redux-shoppingcart01.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+    {
+      name: "Portfolio",
+      url: "https://redux-shoppingcart01.netlify.app",
+      width: "50vw",
+      height: "85vh",
+      top: "1rem",
+      left: "1rem",
+    },
+  ];
+
   function handleMenuOpen() {
     setLogoClicked(true);
   }
   function handleMenuClose() {
     setLogoClicked(false);
+  }
+
+  function incrementZIndex() {
+    setZIndex((prevState) => prevState + 1);
+  }
+
+  function decrementZIndex() {
+    setZIndex((prevState) => prevState - 1);
+  }
+
+  function changeUrl(url) {}
+
+  function modifyOpenApps(name) {
+    setOpenApps((prevState) => [...prevState, name]);
+  }
+  function closeApps(name) {
+    const modifiedOpenApps = openApps.filter((app) => app !== name);
+    setOpenApps(modifiedOpenApps);
   }
   return (
     <div
@@ -157,9 +254,17 @@ const HomeScreen = () => {
           </div>
         </div>
       </div>
-      <div className={classes.center} onClick={handleMenuClose}></div>
+      <div className={classes.center} onClick={handleMenuClose}>
+        {allApps.map((app) => {
+          if (openApps.includes(app.name)) {
+            return <Application {...app} closeApps={closeApps} zIndex={zIndex} />;
+          } else {
+            return null;
+          }
+        })}
+      </div>
       <div className={classes.bottom} onClick={handleMenuClose}>
-        <Dock />
+        <Dock modifyOpenApps={modifyOpenApps} />
       </div>
     </div>
   );
