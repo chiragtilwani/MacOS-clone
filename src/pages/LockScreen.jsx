@@ -122,6 +122,7 @@ const LockScreen = () => {
     "Nov",
     "Dec",
   ];
+
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   let date = new Date();
@@ -141,10 +142,7 @@ const LockScreen = () => {
   if (!clicked) {
     return (
       <>
-        <div
-          className={classes.backdrop}
-          onClick={handleClick}
-        ></div>
+        <div className={classes.backdrop} onClick={handleClick}></div>
         <div
           className={classes.container}
           style={{

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { DiApple } from "react-icons/di";
 import { BsBatteryHalf } from "react-icons/bs";
@@ -6,9 +7,9 @@ import { BiSearch } from "react-icons/bi";
 
 import macWall from "../assets/macWallpaper.jpg";
 import Menu1 from "../components/Menu1";
-import { useState } from "react";
 import Dock from "../components/Dock";
 import Application from "../components/Application";
+import BlackScreen from "../components/BlackScreen";
 
 const useStyles = makeStyles({
   container: {
@@ -66,11 +67,9 @@ const useStyles = makeStyles({
 const HomeScreen = () => {
   const classes = useStyles();
   const [logoClicked, setLogoClicked] = useState(false);
-  const [url, setUrl] = useState();
-  const [top, setTop] = useState(); //for opening apps on homescreen at random position
-  const [bottom, setBottom] = useState(); //for opening apps on homescreen at random position
   const [openApps, setOpenApps] = useState([]);
   const [zIndex, setZIndex] = useState(1);
+  const [sleep, setSleep] = useState(false);
 
   const monthNames = [
     "Jan",
@@ -86,6 +85,7 @@ const HomeScreen = () => {
     "Nov",
     "Dec",
   ];
+
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   let date = new Date();
@@ -119,8 +119,8 @@ const HomeScreen = () => {
       url: "https://react-color-selector.netlify.app",
       width: "50vw",
       height: "85vh",
-      top: "3rem",
-      left: "3rem",
+      top: "2.5rem",
+      left: "7rem",
     },
     {
       name: "Todo",
@@ -128,30 +128,30 @@ const HomeScreen = () => {
       width: "50vw",
       height: "85vh",
       top: "1rem",
-      left: "1rem",
+      left: "4rem",
     },
     {
       name: "dadJoke",
       url: "https://dad-jokeeapp.netlify.app",
       width: "50vw",
       height: "85vh",
-      top: "1rem",
-      left: "1rem",
+      top: "3rem",
+      left: "9rem",
     },
     {
       name: "Pokemon",
       url: "https://pokemon-chirag.netlify.app",
       width: "50vw",
       height: "85vh",
-      top: "1rem",
-      left: "1rem",
+      top: "4rem",
+      left: "10rem",
     },
     {
       name: "Hangman",
       url: "https://hangman-game08.netlify.app",
       width: "50vw",
       height: "85vh",
-      top: "1rem",
+      top: "2rem",
       left: "1rem",
     },
     {
@@ -159,7 +159,7 @@ const HomeScreen = () => {
       url: "https://redux-shoppingcart01.netlify.app",
       width: "50vw",
       height: "85vh",
-      top: "1rem",
+      top: "3rem",
       left: "1rem",
     },
     {
@@ -167,35 +167,33 @@ const HomeScreen = () => {
       url: "https://redux-shoppingcart01.netlify.app",
       width: "50vw",
       height: "85vh",
-      top: "1rem",
-      left: "1rem",
+      top: "2rem",
+      left: "15rem",
     },
   ];
 
   function handleMenuOpen() {
     setLogoClicked(true);
   }
+
   function handleMenuClose() {
     setLogoClicked(false);
   }
 
-  function incrementZIndex() {
-    setZIndex((prevState) => prevState + 1);
-  }
-
-  function decrementZIndex() {
-    setZIndex((prevState) => prevState - 1);
-  }
-
-  function changeUrl(url) {}
-
   function modifyOpenApps(name) {
     setOpenApps((prevState) => [...prevState, name]);
   }
+
   function closeApps(name) {
     const modifiedOpenApps = openApps.filter((app) => app !== name);
     setOpenApps(modifiedOpenApps);
   }
+
+  function handleSleep() {
+    handleMenuClose();
+    setSleep((prevState) => !prevState);
+  }
+
   return (
     <div
       className={classes.container}
@@ -205,8 +203,11 @@ const HomeScreen = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <BlackScreen handleSleep={handleSleep} sleep={sleep} />
+
       <div className={classes.top}>
-        {logoClicked ? <Menu1 /> : null}
+        {logoClicked ? <Menu1 handleSleep={handleSleep} /> : null}
+
         <div className={classes.topLeft}>
           <DiApple
             className={classes.appleIcon}
@@ -217,6 +218,7 @@ const HomeScreen = () => {
             }}
             onClick={logoClicked ? handleMenuClose : handleMenuOpen}
           />
+
           <span className={classes.topSpan} onClick={handleMenuClose}>
             Finder
           </span>
@@ -239,6 +241,7 @@ const HomeScreen = () => {
             Help
           </span>
         </div>
+
         <div className={classes.topRight} onClick={handleMenuClose}>
           <span>India</span>
           <BsBatteryHalf />
@@ -254,15 +257,19 @@ const HomeScreen = () => {
           </div>
         </div>
       </div>
+
       <div className={classes.center} onClick={handleMenuClose}>
         {allApps.map((app) => {
           if (openApps.includes(app.name)) {
-            return <Application {...app} closeApps={closeApps} zIndex={zIndex} />;
+            return (
+              <Application {...app} closeApps={closeApps} zIndex={zIndex} />
+            );
           } else {
             return null;
           }
         })}
       </div>
+
       <div className={classes.bottom} onClick={handleMenuClose}>
         <Dock modifyOpenApps={modifyOpenApps} />
       </div>

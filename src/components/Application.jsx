@@ -39,18 +39,20 @@ const useStyles = makeStyles({
 const Application = (props) => {
   const classes = useStyles();
   const [maximize, setMaximize] = useState(false);
-  const [minimize, setMinimize] = useState(false);
   const [zIndex, setZIndex] = useState(props.zIndex);
+
   function handleClose() {
     props.closeApps(props.name);
   }
+
   function handleMaximize() {
     setMaximize((prevState) => !prevState);
   }
 
-  function handleChangeZindex(){
-    setZIndex((prevState) => prevState+1);
+  function handleChangeZindex() {
+    setZIndex((prevState) => prevState + 1);
   }
+
   return (
     <Draggable>
       <div
@@ -60,7 +62,8 @@ const Application = (props) => {
           height: maximize ? "100vh" : props.height,
           top: maximize ? "-1.38rem" : props.top,
           left: maximize ? 0 : props.left,
-          zIndex:zIndex
+          zIndex: zIndex,
+          transitionDuration: ".1s",
         }}
         onClick={handleChangeZindex}
       >
@@ -84,6 +87,7 @@ const Application = (props) => {
                 borderRadius: "50%",
                 backgroundColor: "#fdb329",
                 display: "inline-block",
+                cursor: "pointer",
               }}
             ></span>
             <span
@@ -93,6 +97,7 @@ const Application = (props) => {
                 borderRadius: "50%",
                 backgroundColor: "#24c138",
                 display: "inline-block",
+                cursor: "pointer",
               }}
               onClick={handleMaximize}
             ></span>
@@ -103,10 +108,11 @@ const Application = (props) => {
           src={props.url}
           frameborder="0"
           style={{
-            width: maximize ? "100vw" : props.width,
-            height: maximize ? "100vh" : props.height,
+            width: maximize ? "100%" : props.width,
+            height: maximize ? "100%" : props.height,
             top: props.top,
             left: props.left,
+            transitionDuration: ".1s",
           }}
           title={props.name}
         ></iframe>

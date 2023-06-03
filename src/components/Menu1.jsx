@@ -20,21 +20,31 @@ const useStyles = makeStyles({
     color: "rgba(255,255,255,.8)",
     padding: ".3rem 0",
     fontSize: ".8rem",
+    zIndex: 5,
   },
   span: {
     width: "100%",
     textAlign: "left",
     paddingLeft: ".5rem",
     height: "1.5rem",
-    '&:hover':{
+    "&:hover": {
       backgroundColor: "#1f68c9",
-      cursor: "default"
-    }
+      cursor: "default",
+    },
   },
 });
 
-const Menu1 = () => {
+const Menu1 = (props) => {
   const classes = useStyles();
+
+  function handleRestart() {
+    window.location.reload();
+  }
+
+  function handleSleepClick() {
+    props.handleSleep();
+  }
+
   return (
     <div className={classes.container}>
       <span className={classes.span}>About Me</span>
@@ -116,8 +126,12 @@ const Menu1 = () => {
         </span>
       </span>
       <Hdivider />
-      <span className={classes.span}>Sleep</span>
-      <span className={classes.span}>Restart...</span>
+      <span className={classes.span} onClick={handleSleepClick}>
+        Sleep
+      </span>
+      <span className={classes.span} onClick={handleRestart}>
+        Restart...
+      </span>
       <span className={classes.span}>Shut Down...</span>
       <Hdivider />
       <span
@@ -140,7 +154,9 @@ const Menu1 = () => {
             fontSize: ".8rem",
             color: "rgba(255,255,255,.3)",
           }}
-        >^<TbCommand />Q</span>
+        >
+          ^<TbCommand />Q
+        </span>
       </span>
       <span
         className={classes.span}
@@ -162,7 +178,10 @@ const Menu1 = () => {
             fontSize: ".8rem",
             color: "rgba(255,255,255,.3)",
           }}
-        ><ImShift/><TbCommand />Q</span>
+        >
+          <ImShift />
+          <TbCommand />Q
+        </span>
       </span>
     </div>
   );

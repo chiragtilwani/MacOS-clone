@@ -57,6 +57,7 @@ const useStyles = makeStyles({
 });
 const StartOverlay = () => {
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
       <div className={classes.inneContainer}>

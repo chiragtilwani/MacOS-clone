@@ -29,7 +29,14 @@ const useStyles = makeStyles({
       transition: "transform 0.2s ease-out",
     },
   },
+  Vdivider: {
+    height: "70%",
+    width: ".2rem",
+    backgroundColor: "rgba(255,255,255,0.1)",
+    borderRadius: "1.2rem",
+  },
 });
+
 const Dock = (props) => {
   const classes = useStyles();
 
@@ -83,6 +90,7 @@ const Dock = (props) => {
         alt="shopping cart logo"
         onClick={() => props.modifyOpenApps("Shopping Cart")}
       />
+      <span className={classes.Vdivider}></span>
       <img
         className={classes.img}
         src={portfolio}
